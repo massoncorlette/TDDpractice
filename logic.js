@@ -1,63 +1,41 @@
+export function capitalize(string) {
+  if (!string) return '';
+  let char = string[0].toUpperCase();
+  return char + string.slice(1);
+}
 
+export function reverse(string) {
+  return string.split('').reverse().join('');
+}
 
-function capitlize(string) {
-  let char = string.shift();
-  char = char.toUpperCase();
-  string = string.unshift(char);
+export function caesarCipher(string, num) {
+  const abcs = 'abcdefghijklmnopqrstuvwxyz';
+  let newCipher = '';
 
-  return string;
-};
+  if (!string) return 'error';
+  if (!num) return string;
 
+  for (let i = 0; i < string.length; i++) {
+    let char = string[i];
 
-function reverse(string) {
-  let reversed = [];
+    if (/[a-zA-Z]/.test(char)) {
+      const isUpperCase = char === char.toUpperCase();
+      let index = abcs.indexOf(char.toLowerCase());
 
-  string.forEach((char) => {
-    reversed.push(char);
-  })
-  return reversed;
-};
+      index = (index + num) % 26;
+      if (index < 0) index += 26;
 
-function caesarCipher(string,num) {
-  const abcs = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-  ];
-
-  let newCipher = null;
-
-  if (!(string)) {
-    return ('error')
-  } else if (!(num)) {
-    return (string);
-  }
-  
-  string.forEach((char) => {
-    let index = abcs.indexOf(char);
-
-    for (let i=0;i>num;i++) {
-      if ((index + i) > 25) {
-        index = 0;
-      }
+      let shiftedChar = abcs[index];
+      newCipher += isUpperCase ? shiftedChar.toUpperCase() : shiftedChar;
+    } else {
+      newCipher += char;
     }
-    newCipher.push(abcs[index]);
-  })
+  }
+
   return newCipher;
-};
+}
 
-const calculator = {
-  add: (a, b) => a + b,
-  subtract: (a, b) => a - b,
-  multiply: (a, b) => a * b,
-  divide: (a, b) => {
-    if (b === 0) {
-      throw new Error("Cannot divide by zero");
-    }
-    return a / b;
-  }
-};
-
-function analyzeArray(arr) {
+export function analyzeArray(arr) {
   if (arr.length === 0) return null;
 
   const sum = arr.reduce((acc, num) => acc + num, 0);
