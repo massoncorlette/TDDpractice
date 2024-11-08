@@ -11,3 +11,7 @@ test('reverse string', () => {
   expect(reverse('hi')).toBe('ih');
   expect(reverse('masson')).toBe('nossam');
 })
+
+test('correct Cipher', () => {
+  expect(caesarCipher('abc',3)).toBe('def');
+})
